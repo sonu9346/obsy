@@ -1,9 +1,7 @@
-// Create a variable called 'counter' to select the element with the id 'line1-part1 h5'
 var counter = document.querySelector('#line1-part1 h5');
-
-// Create a new GSAP timeline called 'tl'
+var cursor = document.querySelector('#cursor');
+var main = document.querySelector('#main');
 var tl = gsap.timeline();
-
 // Define the 'loader' function
 function loader() {
   // Define a variable called 'count' and set it to 0
@@ -43,10 +41,29 @@ function loader() {
   });
   tl.from('#page1', {
     y: 1200,
-    delay: 0.01,
+    delay: 0.05,
+    duration: 1,
+    // scrub: 1,
+  });
+  tl.from('nav', {
+    opacity: 0,
+  });
+  tl.from('.hero h1', {
+    y: 100,
+    stagger: 0.2,
   });
 }
+function cursorAnimation() {
+  main.addEventListener('mousemove', function (dets) {
+    gsap.to(cursor, {
+      x: dets.x,
+      y: dets.y,
+    });
+  });
+  Shery.makeMagnet('nav h4');
+}
+// Call the 'loader' function when the window has finished loading
 
 // Call the 'loader' function
 loader();
-git 
+cursorAnimation();
