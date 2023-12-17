@@ -1,8 +1,33 @@
 var counter = document.querySelector('#line1-part1 h5');
 var cursor = document.querySelector('#cursor');
 var main = document.querySelector('#main');
+var body = document.querySelector('body');
 var tl = gsap.timeline();
+var vidContainer = document.querySelector('#vid-container');
+var playReel = document.querySelector('#play-reel');
 // Define the 'loader' function
+function loco() {
+  gsap.registerPlugin(ScrollTrigger);
+  const locoScroll = new LocomotiveScroll({
+    el: document.querySelector('#main'),
+    smooth: true,
+  });
+  locoScroll.on('scroll', ScrollTrigger.update);
+  ScrollTrigger.scrollerProxy('#main', {
+    scrollTop(value) {
+      return arguments.length
+        ? locoScroll.scrollTo(value, 0, 0)
+        : locoScroll.scroll.instance.scroll.y;
+    },
+    getBoundingClientRect() {
+      return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+    },
+    pinType: document.querySelector('#main').style.transform ? 'transform' : 'fixed',
+  });
+  ScrollTrigger.addEventListener('refresh', () => locoScroll.update());
+
+  ScrollTrigger.refresh();
+}
 function loader() {
   // Define a variable called 'count' and set it to 0
   var count = 0;
@@ -25,6 +50,9 @@ function loader() {
     stagger: 0.1, // Apply a delay to each animation
     duration: 0.8, // Set the duration of the animation to 0.8 seconds
     delay: 0.4, // Set the delay of the animation to 0.4 seconds
+    scrollTrigger: {
+      scroller: '#main',
+    },
   });
 
   // Animate the elements with the ids 'line1-part1' and '.line h2'
@@ -62,8 +90,7 @@ function cursorAnimation() {
   });
   Shery.makeMagnet('nav h4');
 }
-// Call the 'loader' function when the window has finished loading
-
-// Call the 'loader' function
 loader();
+loco();
+
 cursorAnimation();

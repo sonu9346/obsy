@@ -1,6 +1,7 @@
 :root {
   --font1: 'Plain Light';
   --font2: 'Plain';
+  --all: #1a1a1a;
 }
 
 * {
@@ -9,6 +10,10 @@
   padding: 0;
   color: #fff;
   font-family: 'plain light';
+}
+
+body {
+  overflow-x: hidden;
 }
 body,
 html {
@@ -75,9 +80,9 @@ html {
 }
 #main {
   height: 100vh;
-  background: #151515;
   width: 100%;
   /* cursor: none; */
+  background: var(--all);
 }
 #cursor {
   position: fixed;
@@ -93,7 +98,7 @@ html {
 #page1 {
   height: 100vh;
   width: 100%;
-  background: #1a1a1a;
+  background: var(--all);
 }
 #page1 nav {
   display: flex;
@@ -145,4 +150,138 @@ nav .right h4 {
 }
 #page1 #content h1:nth-child(3) {
   text-decoration: underline;
+}
+#page2 {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background: var(--all);
+}
+
+#vid-container {
+  height: 70vh;
+  width: 70vw;
+  position: relative;
+  left: 30vw;
+  padding-top: 1vh;
+}
+#vid-container video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+#vid-container #img {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+#vid-container #img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+#vid-container #play-reel {
+  height: 8vw;
+  width: 8vw;
+  background: #ffa63d;
+  position: relative;
+  z-index: 999;
+  border-radius: 50%;
+  top: 10%;
+  left: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#play-reel i {
+  font-size: 2vw;
+}
+#page3 {
+  height: 100vh;
+  width: 100%;
+  background: #000;
+}
+#page4 {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--all);
+  padding: 6vh;
+  position: relative;
+}
+
+#page4 .text-container {
+  width: 74vw;
+  margin-left: 23vw;
+}
+#page4 .text-container h1 {
+  font-size: 7vw;
+  text-transform: uppercase;
+}
+.underline {
+  height: 1px;
+  margin: 5vw 0;
+  width: 100%;
+  background: #fff;
+}
+
+.text-container p {
+  width: 50%;
+  font-size: 2.5vw;
+}
+#page4 .image-container {
+  margin-top: 10vh;
+  width: 74vw;
+  margin-left: 23vw;
+  display: flex;
+  gap: 3vw;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-container p {
+  width: 50%;
+}
+
+#page4-blue-box {
+  position: relative;
+  left: 50%;
+  bottom: -10%;
+  width: 45vw;
+  height: 85vh;
+  background: #3f7df4;
+  color: white;
+  padding: 3vw 2vw;
+  margin-top: -20vh;
+}
+#page4-blue-box .blue-box {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  position: relative;
+  gap: 9vw;
+  border-bottom: 1px solid #fff;
+  padding: 1.2vw;
+  margin: 1vw;
+}
+#page4-blue-box .blue-box h1 {
+  font-size: 1.8vw;
+  font-family: var(--font1);
+  font-weight: 100;
+  width: 50%;
+}
+#page4-blue-box .blue-box p {
+  font-size: 1vw;
+  font-family: var(--font1);
+  font-weight: 500;
+  width: 80%;
+}
+
+#page5 {
+  height: 100vh;
+  width: 100%;
+  background: var(--all);
 }
