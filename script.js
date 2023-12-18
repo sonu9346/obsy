@@ -6,10 +6,46 @@ var tl = gsap.timeline();
 var vidContainer = document.querySelector('#vid-container');
 var playReel = document.querySelector('#play-reel');
 // Define the 'loader' function
+
+function locomotive() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Using Locomotive Scroll from Locomotive https://github.com/locomotivemtl/locomotive-scroll
+
+  console.log('1 done');
+  const locoScroll = new LocomotiveScroll({
+    el: document.querySelector('#main'),
+    smooth: true,
+  });
+  // each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
+  locoScroll.on('scroll', ScrollTrigger.update);
+
+  // tell ScrollTrigger to use these proxy methods for the "#main" element since Locomotive Scroll is hijacking things
+  ScrollTrigger.scrollerProxy('#main', {
+    scrollTop(value) {
+      return arguments.length
+        ? locoScroll.scrollTo(value, 0, 0)
+        : locoScroll.scroll.instance.scroll.y;
+    }, // we don't have to define a scrollLeft because we're only scrolling vertically.
+    getBoundingClientRect() {
+      return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+    },
+    // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
+    pinType: document.querySelector('#main').style.transform ? 'transform' : 'fixed',
+  });
+  console.log('2 done');
+  // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
+  ScrollTrigger.addEventListener('refresh', () => locoScroll.update());
+
+  // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
+  ScrollTrigger.refresh();
+  console.log('3 done');
+}
+
 function loader() {
   // Define a variable called 'count' and set it to 0
   var count = 0;
-
+  console.log('4 done');
   // Create a new setInterval function to update the 'counter' element's innerHTML every 40 milliseconds
   var start = setInterval(function () {
     count++; // Increment the 'count' variable by 1
@@ -23,6 +59,7 @@ function loader() {
     }
   }, 55);
 
+  console.log('5 done');
   // Animate the elements with the class 'line h1'
   tl.from('.line h1', {
     y: 100, // Move the elements vertically by 100 pixels
@@ -32,6 +69,7 @@ function loader() {
     opacity: 1,
   });
 
+  console.log('6 done');
   // Animate the elements with the ids 'line1-part1' and '.line h2'
   tl.from('#line1-part1,.line h2', {
     opacity: 0, // Set the initial opacity of the elements to 0
@@ -70,32 +108,7 @@ function cursorAnimation() {
   });
   Shery.makeMagnet('nav h4');
 }
-function loco() {
-  gsap.registerPlugin(ScrollTrigger);
-  const locoScroll = new LocomotiveScroll({
-    el: document.querySelector('#main'),
-    smooth: true,
-  });
-  locoScroll.on('scroll', ScrollTrigger.update);
-  ScrollTrigger.scrollerProxy('#main', {
-    scrollTop(value) {
-      return arguments.length
-        ? locoScroll.scrollTo(value, 0, 0)
-        : locoScroll.scroll.instance.scroll.y;
-    },
-    getBoundingClientRect() {
-      return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-    },
-    pinType: document.querySelector('#main').style.transform ? 'transform' : 'fixed',
-  });
-  ScrollTrigger.addEventListener('refresh', () => locoScroll.update());
-
-  ScrollTrigger.refresh();
-}
-
-
-
 
 loader();
 cursorAnimation();
-loco();
+locomotive();
