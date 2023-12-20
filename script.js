@@ -65,7 +65,7 @@ function loader() {
     stagger: 0.1, // Apply a delay to each animation
     duration: 0.8, // Set the duration of the animation to 0.8 seconds
     delay: 0.4, // Set the delay of the animation to 0.4 seconds
-    opacity: 1,
+    opacity: 0,
   });
 
   console.log('6 done');
@@ -85,8 +85,6 @@ function loader() {
     y: 1200,
     delay: 0.05,
     duration: 1,
-
-    // scrub: 1,
   });
   tl.from('nav', {
     opacity: 0,
@@ -95,6 +93,13 @@ function loader() {
     y: 100,
     stagger: 0.2,
   });
+  tl.from('#page2', {
+    opacity: 0,
+  });
+  tl.from('#page3', {
+    opacity: 0,
+  });
+
   console.log('working');
 }
 function cursorAnimation() {
@@ -188,16 +193,10 @@ function flagAnimation() {
     });
   });
 }
-// document.querySelector('#hero3').addEventListener('mouseleave', function () {
-//   document.querySelector('#flag').addEventListener('mousemove', function () {
-//     gsap.to('#flag', {
-//       opacity: 0,
-//     });
-//   });
-// });
 
 loader();
-cursorAnimation();
-locomotive();
-sheryAnimation();
-flagAnimation();
+// // cursorAnimation();
+// locomotive();
+// sheryAnimation();
+// flagAnimation();
+// footerAnimation();
